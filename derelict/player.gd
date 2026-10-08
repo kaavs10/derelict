@@ -4,7 +4,11 @@ const SPEED = 5.0
 const GRAVITY = 12.0
 const MOUSE_SENS = 0.003
 const FLIP_TIME = 0.35
+const OXYGEN_MAX = 100.0
+const OXYGEN_DRAIN = 1.5  # per second
+var oxygen := OXYGEN_MAX
 
+@onready var oxygen_bar: ProgressBar = $"../hud/oxygenbar"
 var gravity_dir := Vector3.DOWN
 var flipping := false
 var flip_tween: Tween
@@ -65,6 +69,11 @@ func respawn():
 	cam.rotation = Vector3.ZERO
 
 func _physics_process(delta):
+	oxygen -= OXYGEN_DRAIN * delta
+	oxygen_bar.value = oxygen
+	if oxygen <= 0:
+		respawn()
+		oxygen = OXYGEN_MAX
 	if global_position.length() > 40.0:
 		respawn()
 		return

@@ -11,6 +11,16 @@ size = Vector3(2, 2, 2)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ql73s"]
 albedo_color = Color(0.26929444, 0.6410129, 0.41136354, 1)
 
+[sub_resource type="Environment" id="Environment_ql73s"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(0.0056666615, 0, 0.17, 1)
+ambient_light_energy = 0.3
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.15660001, 0.20007, 0.27, 1)
+fog_density = 0.05
+
 [node name="main" type="Node3D" unique_id=1748281500]
 
 [node name="floor" type="CSGBox3D" parent="." unique_id=616238363]
@@ -45,6 +55,7 @@ size = Vector3(1, 4, 20)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1583017472]
 transform = Transform3D(0.8660254, -0.35355338, 0.35355338, 0, 0.70710677, 0.70710677, -0.5, -0.6123724, 0.6123724, 0, 0, 0)
+light_energy = 0.1
 
 [node name="player" type="CharacterBody3D" parent="." unique_id=1599235551]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 6)
@@ -55,6 +66,11 @@ shape = SubResource("CapsuleShape3D_ql73s")
 
 [node name="Camera3D" type="Camera3D" parent="player" unique_id=1508740297]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="player/Camera3D" unique_id=701760605]
+light_energy = 3.0
+spot_range = 20.0
+spot_angle = 35.0
 
 [node name="goal" type="Area3D" parent="." unique_id=616620761]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -7)
@@ -67,3 +83,17 @@ shape = SubResource("BoxShape3D_v0s4m")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.95, 0)
 size = Vector3(2, 0.1, 2)
 material = SubResource("StandardMaterial3D_ql73s")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=554886190]
+environment = SubResource("Environment_ql73s")
+
+[node name="hud" type="CanvasLayer" parent="." unique_id=1791202392]
+
+[node name="oxygenbar" type="ProgressBar" parent="hud" unique_id=497923417]
+custom_minimum_size = Vector2(300, 24)
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 320.0
+offset_bottom = 47.0
+value = 100.0
+show_percentage = false
