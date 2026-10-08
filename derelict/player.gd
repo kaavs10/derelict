@@ -52,6 +52,7 @@ func set_gravity(new_dir: Vector3):
 	var from_q := transform.basis.get_rotation_quaternion()
 	var to_q := target.get_rotation_quaternion()
 	create_tween().tween_property(cam, "rotation:x", 0.0, FLIP_TIME)
+	$flipsound.play()
 	flipping = true
 	flip_tween = create_tween()
 	flip_tween.tween_method(
