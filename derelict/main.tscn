@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bqgyy0ncp4uee" path="res://player.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://b00bbjkgnol4r" path="res://goal.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://crxa80d5l8mlp" path="res://tank.gd" id="3_1bvp3"]
+[ext_resource type="Script" uid="uid://bbdja4sv437ed" path="res://flicker.gd" id="4_lquwl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ql73s"]
 
@@ -24,6 +26,14 @@ glow_enabled = true
 fog_enabled = true
 fog_light_color = Color(0.15660001, 0.20007, 0.27, 1)
 fog_density = 0.05
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_v0s4m"]
+radius = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sdhfp"]
+albedo_color = Color(0.08851548, 0.3312977, 0.6741878, 1)
+emission_enabled = true
+emission_energy_multiplier = 2.0
 
 [node name="main" type="Node3D" unique_id=1748281500]
 
@@ -177,3 +187,22 @@ offset_left = 20.0
 offset_top = 60.0
 offset_right = 60.0
 offset_bottom = 83.0
+
+[node name="tank" type="Area3D" parent="." unique_id=386590081]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -12)
+script = ExtResource("3_1bvp3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="tank" unique_id=1448405942]
+shape = SubResource("SphereShape3D_v0s4m")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="tank" unique_id=113934727]
+radius = 0.25
+height = 0.7
+material = SubResource("StandardMaterial3D_sdhfp")
+
+[node name="flicker" type="OmniLight3D" parent="." unique_id=2145885365]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -38)
+light_color = Color(0.8, 1, 1, 1)
+light_energy = 2.0
+omni_range = 12.0
+script = ExtResource("4_lquwl")
