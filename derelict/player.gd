@@ -5,7 +5,7 @@ const GRAVITY = 12.0
 const MOUSE_SENS = 0.003
 const FLIP_TIME = 0.35
 const OXYGEN_MAX = 100.0
-const OXYGEN_DRAIN = 1.5  # per second
+const OXYGEN_DRAIN = 0.8  # per second
 var oxygen := OXYGEN_MAX
 
 @onready var oxygen_bar: ProgressBar = $"../hud/oxygenbar"
@@ -51,6 +51,7 @@ func set_gravity(new_dir: Vector3):
 	var target := (rot * transform.basis).orthonormalized()
 	var from_q := transform.basis.get_rotation_quaternion()
 	var to_q := target.get_rotation_quaternion()
+	create_tween().tween_property(cam, "rotation:x", 0.0, FLIP_TIME)
 	flipping = true
 	flip_tween = create_tween()
 	flip_tween.tween_method(
@@ -67,14 +68,15 @@ func respawn():
 	gravity_dir = Vector3.DOWN
 	up_direction = Vector3.UP
 	cam.rotation = Vector3.ZERO
+	oxygen = OXYGEN_MAX
 
 func _physics_process(delta):
 	oxygen -= OXYGEN_DRAIN * delta
 	oxygen_bar.value = oxygen
 	if oxygen <= 0:
 		respawn()
-		oxygen = OXYGEN_MAX
-	if global_position.length() > 40.0:
+		return
+	if global_position.length() > 100.0:
 		respawn()
 		return
 	var vertical := velocity.project(up_direction)
