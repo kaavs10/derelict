@@ -2,15 +2,6 @@
 
 [ext_resource type="Script" uid="uid://dt1c567epc0u8" path="res://title.gd" id="1_y7k74"]
 
-[sub_resource type="Gradient" id="Gradient_v0s4m"]
-offsets = PackedFloat32Array(0, 0.24096386, 0.85542166)
-colors = PackedColorArray(0, 0, 0, 1, 0.039215688, 0.08627451, 0.14117648, 1, 0.57831323, 0.57831323, 0.57831323, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ql73s"]
-gradient = SubResource("Gradient_v0s4m")
-fill_from = Vector2(1, 0)
-fill_to = Vector2(0, 0)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kpexm"]
 bg_color = Color(0.043137256, 0.101960786, 0.14117648, 1)
 border_width_left = 2
@@ -84,12 +75,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.03, 0.03, 0.03, 1)
-
-[node name="TextureRect" type="TextureRect" parent="." unique_id=989686918]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = SubResource("GradientTexture2D_ql73s")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1382516041]
 layout_mode = 1

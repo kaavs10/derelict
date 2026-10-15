@@ -5,6 +5,10 @@
 [ext_resource type="AudioStream" uid="uid://cwqmikq0gfe2c" path="res://dragon-studio-simple-whoosh-382724 (1).mp3" id="2_lquwl"]
 [ext_resource type="Script" uid="uid://crxa80d5l8mlp" path="res://tank.gd" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://bbdja4sv437ed" path="res://flicker.gd" id="4_lquwl"]
+[ext_resource type="Script" uid="uid://wyvyjlruph44" path="res://orbtrail.gd" id="6_5vw27"]
+[ext_resource type="Script" uid="uid://ci60gdk0x6v01" path="res://key.gd" id="7_kek77"]
+[ext_resource type="Script" uid="uid://cljerjsypiqq4" path="res://keyholezone.gd" id="8_4c57u"]
+[ext_resource type="Script" uid="uid://cqtxtk24cdfbc" path="res://lava.gd" id="9_kek77"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ql73s"]
 
@@ -35,6 +39,41 @@ radius = 0.6
 albedo_color = Color(0.08851548, 0.3312977, 0.6741878, 1)
 emission_enabled = true
 emission_energy_multiplier = 2.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sdhfp"]
+radius = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ycj30"]
+albedo_color = Color(1, 1, 0.34901962, 1)
+emission_enabled = true
+emission_energy_multiplier = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rceul"]
+albedo_color = Color(1, 1, 0.34901962, 1)
+emission_enabled = true
+emission_energy_multiplier = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4jyoo"]
+albedo_color = Color(1, 1, 0.34901962, 1)
+emission_enabled = true
+emission_energy_multiplier = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2dx06"]
+albedo_color = Color(1, 0.100000024, 0.30999982, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ar8dh"]
+albedo_color = Color(1, 0.5566667, 0.3, 1)
+emission_enabled = true
+emission_energy_multiplier = 1.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sdhfp"]
+size = Vector3(4, 3, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ycj30"]
+size = Vector3(20, 0.5, 16)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j2rl6"]
+albedo_color = Color(1, 0.26666668, 0, 1)
 
 [node name="main" type="Node3D" unique_id=1748281500]
 
@@ -192,6 +231,17 @@ offset_top = 60.0
 offset_right = 60.0
 offset_bottom = 83.0
 
+[node name="orbcounter" type="Label" parent="hud" unique_id=1256086543]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "ORBS: 0"
+horizontal_alignment = 2
+
 [node name="tank" type="Area3D" parent="." unique_id=386590081]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -12)
 script = ExtResource("3_1bvp3")
@@ -210,3 +260,55 @@ light_color = Color(0.8, 1, 1, 1)
 light_energy = 2.0
 omni_range = 12.0
 script = ExtResource("4_lquwl")
+
+[node name="orbtrail" type="Node3D" parent="." unique_id=1613991437]
+script = ExtResource("6_5vw27")
+
+[node name="key" type="Area3D" parent="." unique_id=1466339472]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 2.5, -7)
+script = ExtResource("7_kek77")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="key" unique_id=1723169379]
+shape = SubResource("SphereShape3D_sdhfp")
+
+[node name="shaft" type="CSGBox3D" parent="key" unique_id=774233240]
+size = Vector3(0.15, 0.6, 0.15)
+material = SubResource("StandardMaterial3D_ycj30")
+
+[node name="head" type="CSGBox3D" parent="key" unique_id=1269010828]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+size = Vector3(0.4, 0.15, 0.15)
+material = SubResource("StandardMaterial3D_rceul")
+
+[node name="tooth" type="CSGBox3D" parent="key" unique_id=1869034613]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -2, 0)
+size = Vector3(0.15, 0.12, 0.15)
+material = SubResource("StandardMaterial3D_4jyoo")
+
+[node name="gate1" type="CSGBox3D" parent="." unique_id=1746126602]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -10)
+size = Vector3(4, 3, 0.6)
+material = SubResource("StandardMaterial3D_2dx06")
+
+[node name="keyhole" type="CSGBox3D" parent="." unique_id=773023071]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -9.65)
+size = Vector3(0.3, 0.5, 0.1)
+material = SubResource("StandardMaterial3D_ar8dh")
+
+[node name="keyholezone" type="Area3D" parent="." unique_id=1394192000 node_paths=PackedStringArray("gate")]
+script = ExtResource("8_4c57u")
+gate = NodePath("../gate1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="keyholezone" unique_id=796952046]
+shape = SubResource("BoxShape3D_sdhfp")
+
+[node name="lava" type="Area3D" parent="." unique_id=1832286543]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, -20)
+script = ExtResource("9_kek77")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="lava" unique_id=826189639]
+shape = SubResource("BoxShape3D_ycj30")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="lava" unique_id=2045816595]
+size = Vector3(20, 0.3, 16)
+material = SubResource("StandardMaterial3D_j2rl6")

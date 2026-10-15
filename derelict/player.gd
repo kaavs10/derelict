@@ -6,19 +6,24 @@ const MOUSE_SENS = 0.003
 const FLIP_TIME = 0.35
 const OXYGEN_MAX = 100.0
 const OXYGEN_DRAIN = 0.8  # per second
-var oxygen := OXYGEN_MAX
 
-@onready var oxygen_bar: ProgressBar = $"../hud/oxygenbar"
+var oxygen := OXYGEN_MAX
+var has_key := false
+var orbs := 0
+
 var gravity_dir := Vector3.DOWN
 var flipping := false
 var flip_tween: Tween
 var spawn_transform: Transform3D
 
 @onready var cam: Camera3D = $Camera3D
+@onready var oxygen_bar: ProgressBar = $"../hud/oxygenbar"
+@onready var orb_label: Label = $"../hud/orbcounter"
 
 func _ready():
 	spawn_transform = global_transform
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	orb_label.text = "ORBS: 0"
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion and not flipping:
@@ -52,13 +57,18 @@ func set_gravity(new_dir: Vector3):
 	var from_q := transform.basis.get_rotation_quaternion()
 	var to_q := target.get_rotation_quaternion()
 	create_tween().tween_property(cam, "rotation:x", 0.0, FLIP_TIME)
-	$flipsound.play()
+	if has_node("flipsound"):
+		$flipsound.play()
 	flipping = true
 	flip_tween = create_tween()
 	flip_tween.tween_method(
 		func(t): transform.basis = Basis(from_q.slerp(to_q, t)),
 		0.0, 1.0, FLIP_TIME)
 	flip_tween.finished.connect(func(): flipping = false)
+
+func add_orb():
+	orbs += 1
+	orb_label.text = "ORBS: " + str(orbs)
 
 func respawn():
 	if flip_tween:
@@ -70,6 +80,10 @@ func respawn():
 	up_direction = Vector3.UP
 	cam.rotation = Vector3.ZERO
 	oxygen = OXYGEN_MAX
+
+func respawn_at(pos: Vector3):
+	respawn()
+	global_transform = Transform3D(Basis.IDENTITY, pos)
 
 func _physics_process(delta):
 	oxygen -= OXYGEN_DRAIN * delta
