@@ -12,8 +12,9 @@ func _ready():
 	$controlspanel/backbutton.pressed.connect(_on_back)
 
 func _on_play():
-	get_tree().change_scene_to_file("res://main.tscn")
-
+	print("PLAY pressed")
+	var err = get_tree().change_scene_to_file("res://main.tscn")
+	print("Result code: ", err)
 func _on_controls():
 	menu.visible = false
 	controls_panel.visible = true
