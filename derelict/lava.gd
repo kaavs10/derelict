@@ -7,4 +7,5 @@ func _ready():
 
 func _on_body_entered(body):
 	if body.name == "player":
+		body.play_sfx("lava")
 		body.call_deferred("respawn_at", respawn_point)

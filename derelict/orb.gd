@@ -15,4 +15,5 @@ func _process(delta):
 func _on_body_entered(body):
 	if body.name == "player":
 		body.add_orb()
+		body.play_sfx("orb")
 		queue_free()

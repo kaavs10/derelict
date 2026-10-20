@@ -4,8 +4,13 @@
 [ext_resource type="Script" uid="uid://b00bbjkgnol4r" path="res://goal.gd" id="2_0xm2m"]
 [ext_resource type="AudioStream" uid="uid://cwqmikq0gfe2c" path="res://dragon-studio-simple-whoosh-382724 (1).mp3" id="2_lquwl"]
 [ext_resource type="Script" uid="uid://crxa80d5l8mlp" path="res://tank.gd" id="3_1bvp3"]
+[ext_resource type="AudioStream" uid="uid://dpi1d2x2pil6v" path="res://orbpickup.mp3.mp3" id="3_w48qg"]
 [ext_resource type="Script" uid="uid://bbdja4sv437ed" path="res://flicker.gd" id="4_lquwl"]
+[ext_resource type="AudioStream" uid="uid://cwylhw41vg4k" path="res://keypickup.mp3.mp3" id="4_vivmo"]
+[ext_resource type="AudioStream" uid="uid://b7sgx1pcgfk28" path="res://unlock.mp3.mp3" id="5_2cqfq"]
 [ext_resource type="Script" uid="uid://wyvyjlruph44" path="res://orbtrail.gd" id="6_5vw27"]
+[ext_resource type="AudioStream" uid="uid://cvnmjxfanamon" path="res://lava.mp3.mp3" id="6_yaehf"]
+[ext_resource type="AudioStream" uid="uid://b05vtjtmicbep" path="res://lowoxygen.mp3.mp3" id="7_074og"]
 [ext_resource type="Script" uid="uid://ci60gdk0x6v01" path="res://key.gd" id="7_kek77"]
 [ext_resource type="Script" uid="uid://cljerjsypiqq4" path="res://keyholezone.gd" id="8_4c57u"]
 [ext_resource type="Script" uid="uid://cqtxtk24cdfbc" path="res://lava.gd" id="9_kek77"]
@@ -198,6 +203,23 @@ spot_angle = 35.0
 
 [node name="flipsound" type="AudioStreamPlayer3D" parent="player" unique_id=619611334]
 stream = ExtResource("2_lquwl")
+
+[node name="sfx" type="Node" parent="player" unique_id=1906199458]
+
+[node name="orb" type="AudioStreamPlayer" parent="player/sfx" unique_id=359541010]
+stream = ExtResource("3_w48qg")
+
+[node name="key" type="AudioStreamPlayer" parent="player/sfx" unique_id=1098190601]
+stream = ExtResource("4_vivmo")
+
+[node name="unlock" type="AudioStreamPlayer" parent="player/sfx" unique_id=1716148026]
+stream = ExtResource("5_2cqfq")
+
+[node name="lava" type="AudioStreamPlayer" parent="player/sfx" unique_id=1297821961]
+stream = ExtResource("6_yaehf")
+
+[node name="lowo2" type="AudioStreamPlayer" parent="player/sfx" unique_id=1016045524]
+stream = ExtResource("7_074og")
 
 [node name="goal" type="Area3D" parent="." unique_id=616620761]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -47)

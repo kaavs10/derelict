@@ -10,6 +10,7 @@ const OXYGEN_DRAIN = 0.8  # per second
 var oxygen := OXYGEN_MAX
 var has_key := false
 var orbs := 0
+var beep_timer := 0.0
 
 var gravity_dir := Vector3.DOWN
 var flipping := false
@@ -70,6 +71,11 @@ func add_orb():
 	orbs += 1
 	orb_label.text = "ORBS: " + str(orbs)
 
+func play_sfx(sfx_name: String):
+	var p = get_node_or_null("sfx/" + sfx_name)
+	if p:
+		p.play()
+
 func respawn():
 	if flip_tween:
 		flip_tween.kill()
@@ -88,6 +94,11 @@ func respawn_at(pos: Vector3):
 func _physics_process(delta):
 	oxygen -= OXYGEN_DRAIN * delta
 	oxygen_bar.value = oxygen
+	if oxygen < 20.0:
+		beep_timer -= delta
+		if beep_timer <= 0.0:
+			play_sfx("lowo2")
+			beep_timer = 1.0
 	if oxygen <= 0:
 		respawn()
 		return
