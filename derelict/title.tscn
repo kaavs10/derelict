@@ -2,7 +2,11 @@
 
 [ext_resource type="Script" uid="uid://dt1c567epc0u8" path="res://title.gd" id="1_y7k74"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kpexm"]
+[sub_resource type="FontVariation" id="FontVariation_y7k74"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kpexm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xoar"]
 bg_color = Color(0.043137256, 0.101960786, 0.14117648, 1)
 border_width_left = 2
 border_width_top = 2
@@ -14,9 +18,21 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="FontVariation" id="FontVariation_y7k74"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mom7w"]
+bg_color = Color(0.29803923, 0.7882353, 0.9411765, 1)
+border_color = Color(0.03137255, 0.07058824, 0.101960786, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_kpexm"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kpexm"]
+bg_color = Color(0.043137256, 0.101960786, 0.14117648, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.29803923, 0.7882353, 0.9411765, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oyqm6"]
 bg_color = Color(0.043137256, 0.101960786, 0.14117648, 1)
@@ -41,22 +57,6 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xoar"]
-bg_color = Color(0.043137256, 0.101960786, 0.14117648, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.29803923, 0.7882353, 0.9411765, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mom7w"]
-bg_color = Color(0.29803923, 0.7882353, 0.9411765, 1)
-border_color = Color(0.03137255, 0.07058824, 0.101960786, 1)
 
 [node name="title" type="Control" unique_id=769718469]
 layout_mode = 3
@@ -92,31 +92,16 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 24
 
-[node name="controlsbutton" type="Button" parent="VBoxContainer" unique_id=858845181]
-custom_minimum_size = Vector2(300, 60)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-theme_override_styles/normal = SubResource("StyleBoxFlat_kpexm")
-text = "CONTROLS"
-
 [node name="titlelabel" type="Label" parent="VBoxContainer" unique_id=1683300171]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.3372549, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0.5137255, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = SubResource("FontVariation_y7k74")
-theme_override_font_sizes/font_size = 200
+theme_override_font_sizes/font_size = 300
 text = "DERELICT"
 label_settings = SubResource("LabelSettings_kpexm")
 horizontal_alignment = 1
-
-[node name="quitbutton" type="Button" parent="VBoxContainer" unique_id=661095401]
-custom_minimum_size = Vector2(300, 60)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-theme_override_styles/normal = SubResource("StyleBoxFlat_oyqm6")
-theme_override_styles/hover = SubResource("StyleBoxFlat_y7k74")
-text = "QUIT"
 
 [node name="playbutton" type="Button" parent="VBoxContainer" unique_id=1271427389]
 custom_minimum_size = Vector2(300, 60)
@@ -125,6 +110,27 @@ theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxFlat_3xoar")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_mom7w")
 text = "PLAY"
+
+[node name="controlsbutton" type="Button" parent="VBoxContainer" unique_id=858845181]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_kpexm")
+text = "CONTROLS"
+
+[node name="customizebutton" type="Button" parent="VBoxContainer" unique_id=1489956996]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "CUSTOMIZE"
+
+[node name="quitbutton" type="Button" parent="VBoxContainer" unique_id=661095401]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_oyqm6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_y7k74")
+text = "QUIT"
 
 [node name="controlspanel" type="Panel" parent="." unique_id=1598502976]
 visible = false
@@ -164,3 +170,37 @@ layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
 text = "back"
+
+[node name="customizepanel" type="Panel" parent="." unique_id=265447369]
+visible = false
+custom_minimum_size = Vector2(500, 350)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="vbox" type="VBoxContainer" parent="customizepanel" unique_id=1560024536]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="customizepanel/vbox" unique_id=163606868]
+layout_mode = 2
+text = "Flashlight color"
+
+[node name="flashlightoption" type="OptionButton" parent="customizepanel/vbox" unique_id=1764950904]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="customizepanel/vbox" unique_id=1156813583]
+layout_mode = 2
+text = "Visor tint"
+
+[node name="visoroption" type="OptionButton" parent="customizepanel/vbox" unique_id=843448536]
+layout_mode = 2
+
+[node name="custombackbutton" type="Button" parent="customizepanel/vbox" unique_id=813841520]
+layout_mode = 2
+text = "back
+"

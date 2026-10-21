@@ -16,7 +16,8 @@ var gravity_dir := Vector3.DOWN
 var flipping := false
 var flip_tween: Tween
 var spawn_transform: Transform3D
-
+var falling_time := 0.0
+var scream_playing := false
 @onready var cam: Camera3D = $Camera3D
 @onready var oxygen_bar: ProgressBar = $"../hud/oxygenbar"
 @onready var orb_label: Label = $"../hud/orbcounter"
@@ -25,7 +26,12 @@ func _ready():
 	spawn_transform = global_transform
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	orb_label.text = "ORBS: 0"
-
+	var fl = cam.get_node_or_null("SpotLight3D")
+	if fl:
+		fl.light_color = Settings.flashlight_color
+	var v = get_node_or_null("../hud/visor")
+	if v:
+		v.color = Settings.visor_color
 func _unhandled_input(event):
 	if event is InputEventMouseMotion and not flipping:
 		rotate_object_local(Vector3.UP, -event.relative.x * MOUSE_SENS)
@@ -86,12 +92,13 @@ func respawn():
 	up_direction = Vector3.UP
 	cam.rotation = Vector3.ZERO
 	oxygen = OXYGEN_MAX
-
+	stop_scream()
 func respawn_at(pos: Vector3):
 	respawn()
 	global_transform = Transform3D(Basis.IDENTITY, pos)
 
 func _physics_process(delta):
+	update_fall_scream(delta)
 	oxygen -= OXYGEN_DRAIN * delta
 	oxygen_bar.value = oxygen
 	if oxygen < 20.0:
@@ -114,3 +121,24 @@ func _physics_process(delta):
 	var dir := transform.basis * Vector3(input.x, 0, input.y)
 	velocity = dir * SPEED + vertical
 	move_and_slide()
+@warning_ignore("unused_parameter")
+func update_fall_scream(delta):
+	# "Falling" = far from the room area, below the floor in normal gravity
+	var fall_depth := 0.0
+	if gravity_dir == Vector3.DOWN and global_position.y < -2.0:
+		fall_depth = -global_position.y - 2.0
+	if fall_depth > 0.0:
+		if not scream_playing and has_node("scream"):
+			$scream.volume_db = 0.0
+			$scream.play()
+			scream_playing = true
+		if scream_playing:
+			# quieter the deeper you fall: 0 dB at start, -40 dB at 40 m down
+			$scream.volume_db = lerp(0.0, -40.0, clamp(fall_depth / 40.0, 0.0, 1.0))
+	elif scream_playing:
+		stop_scream()
+
+func stop_scream():
+	scream_playing = false
+	if has_node("scream"):
+		$scream.stop()

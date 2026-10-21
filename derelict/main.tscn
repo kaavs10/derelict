@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://b05vtjtmicbep" path="res://lowoxygen.mp3.mp3" id="7_074og"]
 [ext_resource type="Script" uid="uid://ci60gdk0x6v01" path="res://key.gd" id="7_kek77"]
 [ext_resource type="Script" uid="uid://cljerjsypiqq4" path="res://keyholezone.gd" id="8_4c57u"]
+[ext_resource type="AudioStream" uid="uid://dfms38c2l38cx" path="res://scream.mp3.mp3" id="8_vivmo"]
 [ext_resource type="Script" uid="uid://cqtxtk24cdfbc" path="res://lava.gd" id="9_kek77"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ql73s"]
@@ -221,6 +222,9 @@ stream = ExtResource("6_yaehf")
 [node name="lowo2" type="AudioStreamPlayer" parent="player/sfx" unique_id=1016045524]
 stream = ExtResource("7_074og")
 
+[node name="scream" type="AudioStreamPlayer" parent="player" unique_id=614519875]
+stream = ExtResource("8_vivmo")
+
 [node name="goal" type="Area3D" parent="." unique_id=616620761]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -47)
 script = ExtResource("2_0xm2m")
@@ -237,6 +241,14 @@ material = SubResource("StandardMaterial3D_ql73s")
 environment = SubResource("Environment_ql73s")
 
 [node name="hud" type="CanvasLayer" parent="." unique_id=1791202392]
+
+[node name="visor" type="ColorRect" parent="hud" unique_id=1994944348]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="oxygenbar" type="ProgressBar" parent="hud" unique_id=497923417]
 custom_minimum_size = Vector2(300, 24)
