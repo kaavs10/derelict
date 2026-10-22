@@ -15,6 +15,9 @@
 [ext_resource type="Script" uid="uid://cljerjsypiqq4" path="res://keyholezone.gd" id="8_4c57u"]
 [ext_resource type="AudioStream" uid="uid://dfms38c2l38cx" path="res://scream.mp3.mp3" id="8_vivmo"]
 [ext_resource type="Script" uid="uid://cqtxtk24cdfbc" path="res://lava.gd" id="9_kek77"]
+[ext_resource type="Script" uid="uid://c7j1fbutliao3" path="res://pausemenu.gd" id="10_2cqfq"]
+[ext_resource type="Script" uid="uid://b7wxlfmq3kk58" path="res://room_2_trigger.gd" id="17_yaehf"]
+[ext_resource type="Script" uid="uid://b2uo1h65sxoc5" path="res://intromsg.gd" id="18_074og"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ql73s"]
 
@@ -80,6 +83,11 @@ size = Vector3(20, 0.5, 16)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j2rl6"]
 albedo_color = Color(1, 0.26666668, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rceul"]
+size = Vector3(6, 3, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ql73s"]
 
 [node name="main" type="Node3D" unique_id=1748281500]
 
@@ -246,6 +254,10 @@ environment = SubResource("Environment_ql73s")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -13.0
+offset_top = 6.0
+offset_right = -13.0
+offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -275,6 +287,71 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 32
 text = "ORBS: 0"
 horizontal_alignment = 2
+
+[node name="pausemenu" type="Control" parent="hud" unique_id=1681047912]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_2cqfq")
+
+[node name="ColorRect" type="ColorRect" parent="hud/pausemenu" unique_id=1634895125]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="vbox" type="VBoxContainer" parent="hud/pausemenu" unique_id=726460816]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="resumebutton" type="Button" parent="hud/pausemenu/vbox" unique_id=697779859]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "RESUME"
+
+[node name="menubutton" type="Button" parent="hud/pausemenu/vbox" unique_id=2057868459]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+text = "MAIN MENU
+"
+
+[node name="lavamsg" type="Label" parent="hud" unique_id=565615015]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -77.0
+offset_top = -11.5
+offset_right = 77.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.33333334, 0.13333334, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 80
+text = "THE FLOOR IS LAVA!"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="tank" type="Area3D" parent="." unique_id=386590081]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -12)
@@ -346,3 +423,32 @@ shape = SubResource("BoxShape3D_ycj30")
 [node name="CSGBox3D" type="CSGBox3D" parent="lava" unique_id=2045816595]
 size = Vector3(20, 0.3, 16)
 material = SubResource("StandardMaterial3D_j2rl6")
+
+[node name="room2trigger" type="Area3D" parent="." unique_id=1204778196]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -11)
+script = ExtResource("17_yaehf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room2trigger" unique_id=1935945871]
+shape = SubResource("BoxShape3D_rceul")
+
+[node name="intromsg" type="Label" parent="." unique_id=449983336]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -343.0
+offset_top = -167.5
+offset_right = 324.0
+offset_bottom = 167.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.62352943, 0.9098039, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 56
+text = "SHUT THE REACTOR DOWN BEFORE THE OXYGEN RUNS OUT!!! "
+label_settings = SubResource("LabelSettings_ql73s")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+script = ExtResource("18_074og")

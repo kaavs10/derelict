@@ -13,8 +13,11 @@ var visor_colors = [Color(0, 0, 0, 0), Color(0.2, 0.5, 1, 0.15), Color(1, 0.1, 0
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	get_tree().paused = false
 	controls_panel.visible = false
 	custom_panel.visible = false
+	menu.visible = true
+
 	for n in fl_names:
 		fl_option.add_item(n)
 	for n in visor_names:
@@ -23,11 +26,12 @@ func _ready():
 	visor_option.selected = max(visor_colors.find(Settings.visor_color), 0)
 	fl_option.item_selected.connect(func(i): Settings.flashlight_color = fl_colors[i])
 	visor_option.item_selected.connect(func(i): Settings.visor_color = visor_colors[i])
+
 	$VBoxContainer/playbutton.pressed.connect(_on_play)
 	$VBoxContainer/controlsbutton.pressed.connect(_on_controls)
 	$VBoxContainer/customizebutton.pressed.connect(_on_customize)
 	$VBoxContainer/quitbutton.pressed.connect(_on_quit)
-	$controlspanel/backbutton.pressed.connect(_on_back)
+	$controlspanel/vbox/backbutton.pressed.connect(_on_back)
 	$customizepanel/vbox/custombackbutton.pressed.connect(_on_back)
 
 func _on_play():

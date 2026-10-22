@@ -1,11 +1,8 @@
 extends OmniLight3D
-
 var base_energy := 2.0
 var timer := 0.0
-
 func _ready():
 	base_energy = light_energy
-
 func _process(delta):
 	timer -= delta
 	if timer <= 0.0:

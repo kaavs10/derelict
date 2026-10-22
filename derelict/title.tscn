@@ -5,6 +5,7 @@
 [sub_resource type="FontVariation" id="FontVariation_y7k74"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kpexm"]
+font_size = 96
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xoar"]
 bg_color = Color(0.043137256, 0.101960786, 0.14117648, 1)
@@ -33,6 +34,8 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d13ii"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oyqm6"]
 bg_color = Color(0.043137256, 0.101960786, 0.14117648, 1)
@@ -72,6 +75,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -16.0
+offset_right = -16.0
+offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -84,10 +91,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -116.0
-offset_right = 150.0
-offset_bottom = 159.0
+offset_left = -248.0
+offset_top = -284.0
+offset_right = 217.5
+offset_bottom = 284.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 24
@@ -122,6 +129,7 @@ text = "CONTROLS"
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxTexture_d13ii")
 text = "CUSTOMIZE"
 
 [node name="quitbutton" type="Button" parent="VBoxContainer" unique_id=661095401]
@@ -134,7 +142,7 @@ text = "QUIT"
 
 [node name="controlspanel" type="Panel" parent="." unique_id=1598502976]
 visible = false
-custom_minimum_size = Vector2(500, 350)
+custom_minimum_size = Vector2(500, 420)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -148,10 +156,18 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="controlspanel" unique_id=1128511706]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="vbox" type="VBoxContainer" parent="controlspanel" unique_id=1618496408]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="controlspanel/vbox" unique_id=1128511706]
+layout_mode = 2
+size_flags_vertical = 3
 text = "CONTROLS
 
 W - Move forward
@@ -164,19 +180,26 @@ Esc - Release the mouse
 
 Goal: reach the green pad before your oxygen runs out."
 
-[node name="backbutton" type="Button" parent="controlspanel" unique_id=296713756]
-visible = false
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+[node name="backbutton" type="Button" parent="controlspanel/vbox" unique_id=296713756]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
 text = "back"
 
 [node name="customizepanel" type="Panel" parent="." unique_id=265447369]
 visible = false
 custom_minimum_size = Vector2(500, 350)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -175.0
+offset_right = 250.0
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="vbox" type="VBoxContainer" parent="customizepanel" unique_id=1560024536]
 layout_mode = 1
@@ -189,6 +212,7 @@ grow_vertical = 2
 [node name="Label" type="Label" parent="customizepanel/vbox" unique_id=163606868]
 layout_mode = 2
 text = "Flashlight color"
+justification_flags = 171
 
 [node name="flashlightoption" type="OptionButton" parent="customizepanel/vbox" unique_id=1764950904]
 layout_mode = 2
