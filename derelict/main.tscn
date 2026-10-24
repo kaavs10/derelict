@@ -18,6 +18,8 @@
 [ext_resource type="Script" uid="uid://c7j1fbutliao3" path="res://pausemenu.gd" id="10_2cqfq"]
 [ext_resource type="Script" uid="uid://b7wxlfmq3kk58" path="res://room_2_trigger.gd" id="17_yaehf"]
 [ext_resource type="Script" uid="uid://b2uo1h65sxoc5" path="res://intromsg.gd" id="18_074og"]
+[ext_resource type="Script" uid="uid://csq238spodemm" path="res://pod.gd" id="19_cegan"]
+[ext_resource type="Script" uid="uid://ltuc1hx14xvw" path="res://reactor.gd" id="20_82xsv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ql73s"]
 
@@ -88,6 +90,18 @@ albedo_color = Color(1, 0.26666668, 0, 1)
 size = Vector3(6, 3, 2)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ql73s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mjsa7"]
+albedo_color = Color(0.49, 0.49, 0.49, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pjnwm"]
+albedo_color = Color(1, 0.060000002, 0.060000002, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4jyoo"]
+size = Vector3(3, 3, 2)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ql73s"]
+radius = 1.8
 
 [node name="main" type="Node3D" unique_id=1748281500]
 
@@ -429,6 +443,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -11)
 script = ExtResource("17_yaehf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="room2trigger" unique_id=1935945871]
+visible = false
 shape = SubResource("BoxShape3D_rceul")
 
 [node name="intromsg" type="Label" parent="." unique_id=449983336]
@@ -452,3 +467,50 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 script = ExtResource("18_074og")
+
+[node name="pod" type="Area3D" parent="." unique_id=1976581024 node_paths=PackedStringArray("reactor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -48)
+script = ExtResource("19_cegan")
+reactor = NodePath("../reactor")
+
+[node name="shell" type="CSGBox3D" parent="pod" unique_id=449584784]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
+size = Vector3(5, 3.5, 3)
+material = SubResource("StandardMaterial3D_mjsa7")
+
+[node name="hollow" type="CSGBox3D" parent="pod/shell" unique_id=345961267]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.14999998, 0)
+visible = false
+size = Vector3(4.2, 3, 2.4)
+
+[node name="door" type="CSGBox3D" parent="pod" unique_id=166513030]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 1.4)
+use_collision = true
+size = Vector3(3, 3, 0.3)
+material = SubResource("StandardMaterial3D_pjnwm")
+
+[node name="podlight" type="OmniLight3D" parent="pod" unique_id=1659803664]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+light_energy = 2.0
+omni_range = 6.0
+
+[node name="podzone" type="Area3D" parent="pod" unique_id=612224756]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pod/podzone" unique_id=849140513]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_4jyoo")
+
+[node name="reactor" type="Area3D" parent="." unique_id=57388537]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1.6, -44)
+script = ExtResource("20_82xsv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="reactor" unique_id=1148159290]
+shape = SubResource("SphereShape3D_ql73s")
+
+[node name="core" type="CSGSphere3D" parent="reactor" unique_id=1808554537]
+radius = 1.0
+
+[node name="light" type="OmniLight3D" parent="reactor" unique_id=382042899]
+light_color = Color(0.89477986, 0.5126984, 0.3171439, 1)
+light_energy = 3.0
+omni_range = 14.0
